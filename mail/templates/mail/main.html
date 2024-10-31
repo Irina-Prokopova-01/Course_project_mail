@@ -1,0 +1,33 @@
+{% extends 'mail/base.html' %}
+
+{% block title %}Главная страница {% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+        <div class="container mt-5">
+            <h1 class="my-0 font-weight-normal text-center">ИНФОРМАЦИЯ ПО РАССЫЛКАМ</h1>
+            <h4 class="my-0 font-weight-normal mt-3">Количество всех рассылок:</h4>
+            <h4 class="my-0 font-weight-normal mt-3">Количество активных рассылок:</h4>
+            <h4 class="my-0 font-weight-normal mt-3">Количество уникальных получателей: </h4>
+
+        </div>
+        <div class="container">
+        <div class="container mt-5">
+            <div class="d-flex justify-content-between">
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-block btn-outline-primary" href="#" role="button">Посмотреть</a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-block btn-outline-primary" href="#" role="button">Удалить</a>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+
+
+
+{% endblock %}
