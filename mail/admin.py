@@ -26,6 +26,12 @@ class MailingAdmin(admin.ModelAdmin):
 # Register your models here.
 @admin.register(Attempts)
 class AttemptsAdmin(admin.ModelAdmin):
-    list_display = ("id", "attempt_date", "attempt_status", "mail_server_response", "mailing")
+    list_display = (
+        "id",
+        "attempt_date",
+        "attempt_status",
+        "mail_server_response",
+        "mailing",
+    )
     search_fields = ("attempt_status", "mailing")
     list_filter = ("attempt_status", "mailing")

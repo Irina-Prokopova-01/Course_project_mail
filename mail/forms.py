@@ -14,8 +14,12 @@ class RecipientForm(forms.ModelForm):
         self.fields["email"].widget.attrs.update(
             {"class": "form-control", "placeholder": "Введите адрес электронной почты"}
         )
-        self.fields["full_name"].widget.attrs.update({"class": "form-control", "placeholder": "Введите полное имя"})
-        self.fields["comment"].widget.attrs.update({"class": "form-control", "placeholder": "Введите комментарий"})
+        self.fields["full_name"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите полное имя"}
+        )
+        self.fields["comment"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите комментарий"}
+        )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -31,8 +35,12 @@ class MessageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
-        self.fields["subject"].widget.attrs.update({"class": "form-control", "placeholder": "Введите тему сообщения"})
-        self.fields["text"].widget.attrs.update({"class": "form-control", "placeholder": "Введите текст сообщения"})
+        self.fields["subject"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите тему сообщения"}
+        )
+        self.fields["text"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите текст сообщения"}
+        )
 
 
 class MailingForm(forms.ModelForm):
@@ -42,8 +50,12 @@ class MailingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MailingForm, self).__init__(*args, **kwargs)
-        self.fields["start_at"].widget.attrs.update({"class": "form-control", "type": "datetime-local"})
-        self.fields["end_at"].widget.attrs.update({"class": "form-control", "type": "datetime-local"})
+        self.fields["start_at"].widget.attrs.update(
+            {"class": "form-control", "type": "datetime-local"}
+        )
+        self.fields["end_at"].widget.attrs.update(
+            {"class": "form-control", "type": "datetime-local"}
+        )
         self.fields["recipients"].widget.attrs.update({"class": "form-control"})
         self.fields["status"].widget.attrs.update({"class": "form-control"})
         self.fields["message"].widget.attrs.update({"class": "form-control"})
