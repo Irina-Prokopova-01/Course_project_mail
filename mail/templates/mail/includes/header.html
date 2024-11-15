@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">На главную страницу</a>
+    <a class="navbar-brand" href="{% url 'mail:main' %}">На главную страницу</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,6 +10,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
+        {% if user.is_authenticated %}
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'mail:recipient_list' %}">Получатели</a>
@@ -20,8 +21,26 @@
             <a class="nav-link" href="#">Отчеты</a>
           </li>
           <li class="nav-item dropdown">
+            <a class="nav-link active" aria-current="page" href="{% url 'mail:recipient_list' %}">Пользователи сервиса</a>
           </li>
         </ul>
+        {% endif %}
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            {% csrf_token %}
+            <a class="nav-link active" aria-current="page" href="{% url 'users:logout' %}">Выйти из {{ user.email }}</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'users:login' %}">Войти</a>
+        </li>
+          <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'users:register' %}">Регистрация</a>
+            </li>
+
+        {% endif %}
+      </ul>
         <form class="d-flex mt-3" role="search">
           <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
           <button class="btn btn-success" type="submit">Поиск</button>
