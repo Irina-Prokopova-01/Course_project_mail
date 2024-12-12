@@ -10,6 +10,11 @@ python = "^3.12"
 python-dotenv = "^1.0.1"
 psycopg2-binary = "^2.9.10"
 django = "4.2.2"
+django-registration = "^5.1.0"
+psycopg2 = "^2.9.10"
+shell = "^1.0.1"
+ipython = "^8.29.0"
+redis = "^5.2.1"
 
 
 [tool.poetry.group.dev.dependencies]

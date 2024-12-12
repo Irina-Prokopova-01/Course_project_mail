@@ -1,7 +1,9 @@
 from django.db import models
+from users.models import CustomUser
 
 
 class Recipient(models.Model):
+    "Модель получателя"
     full_name = models.CharField(
         max_length=150,
         verbose_name="ФИО получателя рассылки",
@@ -17,6 +19,9 @@ class Recipient(models.Model):
         blank=True,
         null=True,
         help_text="Введите комментарий к получателю",
+    )
+    owner = models.ForeignKey(
+        CustomUser, verbose_name="Владелец", on_delete=models.CASCADE, related_name="recipients", null=True, blank=True,
     )
 
     def __str__(self):
@@ -36,6 +41,9 @@ class Message(models.Model):
     )
     text = models.TextField(
         verbose_name="Текст сообщения", help_text="Введите текст сообщения"
+    )
+    owner = models.ForeignKey(
+        CustomUser, verbose_name="Владелец", on_delete=models.CASCADE, related_name="messages", null=True, blank=True,
     )
 
     def __str__(self):
@@ -80,9 +88,10 @@ class Mailing(models.Model):
         help_text="Выберите сообщение для рассылки",
     )
     recipients = models.ManyToManyField(
-        Recipient,
-        verbose_name="Получатели",
-        help_text="Выберите получателей для рассылки",
+        Recipient, verbose_name="Получатели", help_text="Выберите получателей для рассылки",
+    )
+    owner = models.ForeignKey(
+        CustomUser, verbose_name="Владелец", on_delete=models.CASCADE, related_name="mailings", null=True, blank=True,
     )
 
     def __str__(self):
@@ -92,9 +101,13 @@ class Mailing(models.Model):
         verbose_name = "рассылка"
         verbose_name_plural = "рассылки"
         ordering = ["status", "message"]
+        permissions = [
+            ("can_finish_mailing", "can finish mailing"),
+        ]
 
 
 class Attempts(models.Model):
+    """Модель попыток рассылки."""
     SUCCESS = "успешно"
     FAILURE = "неуспешно"
     ATTEMPT_STATUS_CHOICES = [(SUCCESS, "успешно"), (FAILURE, "неуспешно")]
@@ -117,6 +130,9 @@ class Attempts(models.Model):
         verbose_name="Рассылка",
         help_text="Выберите рассылку для попытки",
     )
+    owner = models.ForeignKey(
+        CustomUser, verbose_name="Владелец", on_delete=models.CASCADE, related_name="mailing_attempts", null=True, blank=True,
+    )
 
     def __str__(self):
         return f"{self.mailing.message.subject} - {self.attempt_status} - {self.mail_server_response} - {self.attempt_date}"
@@ -124,4 +140,4 @@ class Attempts(models.Model):
     class Meta:
         verbose_name = "попытка рассылки"
         verbose_name_plural = "попытки рассылки"
-        ordering = ["attempt_status", "mailing"]
+        ordering = ["attempt_date", "attempt_status", "mailing"]
