@@ -154,7 +154,7 @@ class MessageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return HttpResponseForbidden("У вас нет прав на это действие.")
 
 
-class MailingListView(ListView):
+class MailingListView(LoginRequiredMixin, ListView):
     """Контроллер отображения списка рассылок."""
     model = Mailing
     template_name = "mail/mailing_list.html"
@@ -173,13 +173,13 @@ class MailingListView(ListView):
         return context
 
 
-class MailingDetailView(DetailView):
+class MailingDetailView(LoginRequiredMixin, DetailView):
     """Контроллер отображения подробностей о рассылке."""
     model = Mailing
     template_name = "mail/mailing_detail.html"
 
 
-class MailingCreateView(CreateView):
+class MailingCreateView(LoginRequiredMixin, CreateView):
     model = Mailing
     form_class = MailingForm
     template_name = "mail/mailing_form.html"
@@ -225,7 +225,7 @@ class MailingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return HttpResponseForbidden("У вас нет прав на это действие.")
 
 
-class AttemptsListView(ListView):
+class AttemptsListView(LoginRequiredMixin, ListView):
     """Контроллер отображения списка попыток отправки."""
     model = Attempts
     template_name = "mail/mailing_attempts_list.html"
