@@ -5,5 +5,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", include("mail.urls", namespace="mail")),
+    path("", include("users.urls", namespace="users")),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('catalog/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# handler404 = page_not_found
 

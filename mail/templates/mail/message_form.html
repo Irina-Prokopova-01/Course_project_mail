@@ -1,0 +1,32 @@
+{% extends 'mail/base.html' %}
+
+{% block title %}Создание/изменение сообщений{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+
+        <h1 class="mb-4">
+            {% if message %}
+            Форма изменения сообщения
+            {% else %}
+            Форма создания сообщения
+            {% endif %}
+            </h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">
+                {% if message %}
+                Сохранить
+                {% else %}
+                Создать
+                {% endif %}
+            </button>
+            <a href="{% url 'mail:message_list' %}">Отмена</a>
+        </form>
+
+</div>
+
+{% endblock %}
